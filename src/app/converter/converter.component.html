@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Currency Converter</h1>
+  <form [formGroup]="currencyForm" (submit)="converter()">
+    <div class="row">
+      <div class="col">
+        <label for="cur">BASE</label>
+        <select id="Currency" class="form-control" formControlName="base" (change)="baseChange($event)">
+          <option value="USD">US Dollars</option>
+          <option value="CAD">Canadian Dollars</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="cur">CONVERT TO:</label>
+        <select id="Currency" class="form-control" formControlName="currency" (change)="convertChange($event)">
+          <option *ngFor="let row of exchangeList | keyvalue; let i=index" value="{{row.value}}">
+            {{ row.key | uppercase }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col">
+        <label for="amount">AMOUNT</label>
+        <input type="number" class="form-control" id="amount" formControlName="amount">
+      </div>
+
+      <label>Converted Value: {{ convertedValue | number:'.1-2' }} </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Convert</button>
+  </form>
+
+
+
+  <br>
+
+  <!-- BONUS SECTION USING CUSTOME PIPE -->
+
+  <div class="form-group">
+    <label>Miles</label>
+
+    <input type="number" class="form-control" (input)="getMiles($event.target.value)">
+
+  </div>
+
+  {{ mile | converter: 'km' | number: '.0-3' }}
+
+  <!-- <b>{{amount.toFixed(2)}} {{from}} = {{ converter().toFixed(2)}} {{ to }}</b> -->
+</div>
